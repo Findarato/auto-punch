@@ -68,14 +68,6 @@ def get_settings():
         print("Failed to import settings from settings.json.")
         sys.exit()
 
-    if settings['deviation'] > settings['antifarm_sleep'] and settings['antifarm_sleep'] != 0:
-        print("deviation cannot be larger than antifarm_sleep time")
-        sys.exit()
-
-    if settings['deviation'] < 0:
-        print("deviation cannot be negative")
-        sys.exit()
-
     return settings
 
 
@@ -96,31 +88,8 @@ def get_credentials():
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--stories",
-                        help="stories mode", action="store_true")
-    parser.add_argument("-l", "--learn", help="learn mode",
-                        action="store_true")
-    parser.add_argument("-i", "--incognito",
-                        help="incognito browser mode", action="store_true")
-    parser.add_argument(
-        "-m", "--mute", help="mute browser audio", action="store_true")
-    parser.add_argument(
-        "-a", "--autologin", help="login to duolingo automatically", action="store_true")
 
     args = parser.parse_args()
-
-    if args.incognito:
-        settings['incognito'] = True
-
-    if args.mute:
-        settings['mute_audio'] = True
-
-    if args.autologin:
-        settings['auto_login'] = True
-
-    # set default mode to stories
-    if not args.learn and not args.stories:
-        args.stories = True
 
     return args
 
@@ -191,7 +160,9 @@ def main():
 
     punch_in_for_the_day()
 
-    exit("You are punched in")
+    print("You are punched in")
+
+    input("Press Enter to continue...")
 
 
 if __name__ == "__main__":
