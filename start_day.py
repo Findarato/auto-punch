@@ -97,7 +97,7 @@ def parse_arguments():
 def login_to_sso(login, password):
     print("Starting the login")
     if settings['auto_login'] and login != "" and password != "":
-        user_name = WebDriverWait(driver, 30).until(
+        user_name = WebDriverWait(driver, 60).until(
             EC.presence_of_element_located(
                 (By.ID, 'userNameInput'))
         )
@@ -106,6 +106,12 @@ def login_to_sso(login, password):
 
         password_field = driver.find_element(By.ID, 'passwordInput')
         password_field.send_keys(password)
+
+        # Adding in a pause to make sure it actually finishes
+
+        # time.sleep(10)
+
+        time.sleep(5.5)
 
         signin_button = driver.find_element(By.ID, 'submitButton')
         signin_button.click()
@@ -117,7 +123,7 @@ def login_to_sso(login, password):
         print('Logged in to SSO')
 
     except WebDriverException:
-        exit("Timed out. Please login to Duolingo in time.")
+        exit("Timed out. Something went wrong")
 
 
 def punch_in_for_the_day():
