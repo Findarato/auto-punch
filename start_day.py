@@ -56,6 +56,25 @@ def exit(message=""):
     driver.quit()
     sys.exit()
 
+def check_vpn_status():
+    vpn_check = False
+
+    while vpn_check == False :
+        try:
+            read_file = open(settings['vpn_interface'])
+            upstatus = read_file.read().rstrip()
+
+            # print(repr(upstatus))
+
+            if upstatus == 'up':
+                vpn_check = True
+                print('🤯 VPN Up LETS GO!')
+
+            print('😴 Sleeping for 10 seconds')
+            time.sleep(10)
+        except:
+            print("something broke really bad")
+            sys.exit()
 
 def get_settings():
     settings = {}
@@ -96,6 +115,7 @@ def parse_arguments():
 
 def login_to_sso(login, password):
     print("Starting the login")
+
     if settings['auto_login'] and login != "" and password != "":
         user_name = WebDriverWait(driver, 60).until(
             EC.presence_of_element_located(
@@ -138,6 +158,10 @@ def main():
     global settings
     settings = get_settings()
 
+    print("🪐 Waiting for VPN to connect")
+
+    check_vpn_status()
+
     login, password = get_credentials()
 
     args = parse_arguments()
@@ -152,6 +176,8 @@ def main():
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     driver.get("https://methodisthospitals-sso.prd.mykronos.com/wfd/home")
+
+
 
     try:
         have_account = WebDriverWait(driver, 10).until(
