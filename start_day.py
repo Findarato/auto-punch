@@ -69,12 +69,11 @@ def check_vpn_status():
             if upstatus == 'up':
                 vpn_check = True
                 print('🤯 VPN Up LETS GO!')
-
+        except:
             print('😴 Sleeping for 10 seconds')
             time.sleep(10)
-        except:
-            print("something broke really bad")
-            sys.exit()
+            # print("something broke really bad")
+            # sys.exit()
 
 def get_settings():
     settings = {}
