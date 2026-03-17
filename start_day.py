@@ -18,6 +18,18 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from selenium.webdriver.chrome.service import Service as ChromeService
 
+# Colors for terminal output
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 
 def set_chrome_options(chrome_options):
 
@@ -68,9 +80,10 @@ def check_vpn_status():
 
             if upstatus == 'up':
                 vpn_check = True
-                print('🤯 VPN Up LETS GO!')
+                print(bcolors.OKGREEN + "🤯: VPN Up LET US GO!" + bcolors.ENDC)
         except:
-            print('😴 Sleeping for 10 seconds')
+            print(bcolors.WARNING + "😴: Sleeping for 10 seconds" + bcolors.ENDC)
+            # print('😴 Sleeping for 10 seconds')
             time.sleep(10)
             # print("something broke really bad")
             # sys.exit()
@@ -140,6 +153,11 @@ def login_to_sso(login, password):
             (By.ID, 'punchSubmitBtnId')))
 
         print('Logged in to SSO')
+        print(bcolors.OKGREEN + "▗▖    ▗▄▖  ▗▄▄▖ ▗▄▄▖▗▄▄▄▖▗▄▄▄     ▗▄▄▄▖▗▖  ▗▖    ▗▄▄▄▖▗▄▖      ▗▄▄▖ ▗▄▄▖ ▗▄▖ " + bcolors.ENDC)
+        print(bcolors.OKGREEN + "▐▌   ▐▌ ▐▌▐▌   ▐▌   ▐▌   ▐▌  █      █  ▐▛▚▖▐▌      █ ▐▌ ▐▌    ▐▌   ▐▌   ▐▌ ▐▌" + bcolors.ENDC)
+        print(bcolors.OKGREEN + "▐▌   ▐▌ ▐▌▐▌   ▐▌   ▐▌   ▐▌  █      █  ▐▛▚▖▐▌      █ ▐▌ ▐▌    ▐▌   ▐▌   ▐▌ ▐▌" + bcolors.ENDC)
+        print(bcolors.OKGREEN + "▐▌   ▐▌ ▐▌▐▌▝▜▌▐▌▝▜▌▐▛▀▀▘▐▌  █      █  ▐▌ ▝▜▌      █ ▐▌ ▐▌     ▝▀▚▖ ▝▀▚▖▐▌ ▐▌" + bcolors.ENDC)
+        print(bcolors.OKGREEN + "▐▙▄▄▖▝▚▄▞▘▝▚▄▞▘▝▚▄▞▘▐▙▄▄▖▐▙▄▄▀    ▗▄█▄▖▐▌  ▐▌      █ ▝▚▄▞▘    ▗▄▄▞▘▗▄▄▞▘▝▚▄▞▘" + bcolors.ENDC)
 
     except WebDriverException:
         exit("Timed out. Something went wrong")
@@ -157,7 +175,7 @@ def main():
     global settings
     settings = get_settings()
 
-    print("🪐 Waiting for VPN to connect")
+    print(bcolors.WARNING + "🪐: Waiting for VPN to connect" + bcolors.ENDC)
 
     check_vpn_status()
 
